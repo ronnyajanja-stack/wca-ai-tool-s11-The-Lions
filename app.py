@@ -220,6 +220,15 @@ def option_3_exit_program(session_log: list):
     print("Goodbye!")
     sys.exit(0)
 
+def get_menu_choice():
+        """Prompt the user until a valid main menu choice is entered."""
+        while True:
+            choice = input("\nSelect an option (1-3): ").strip()
+
+            if choice in ("1", "2", "3"):
+                return choice
+
+            print("[!] Invalid choice. Please enter 1, 2, or 3.")
 
 def display_menu():
     print("\n" + "=" * 60)
@@ -241,7 +250,7 @@ def main():
 
     while True:
         display_menu()
-        choice = input("\nSelect an option (1-3): ").strip()
+        choice = get_menu_choice()
 
         if choice == "1":
             option_1_county_school_rag(schools_db, session_log)
@@ -249,8 +258,6 @@ def main():
             option_2_career_opportunity_insights(session_log)
         elif choice == "3":
             option_3_exit_program(session_log)
-        else:
-            print("\n[!] Invalid choice. Please enter 1, 2, or 3.")
 
 
 if __name__ == "__main__":
