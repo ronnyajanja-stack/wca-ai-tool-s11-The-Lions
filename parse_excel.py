@@ -1,4 +1,4 @@
-import json
+﻿import json
 import os
 import pandas as pd
 
@@ -113,7 +113,7 @@ if missing_columns:
     )
 
 
-print("\n[✓] All expected Excel columns were found.")
+print("\n[Γ£ô] All expected Excel columns were found.")
 
 
 # ============================================================
@@ -278,8 +278,8 @@ print("\n" + "=" * 70)
 print("CONVERSION COMPLETE")
 print("=" * 70)
 
-print(f"\n[✓] Schools exported: {len(schools)}")
-print(f"[✓] JSON file created:")
+print(f"\n[Γ£ô] Schools exported: {len(schools)}")
+print(f"[Γ£ô] JSON file created:")
 print(output_json)
 
 
