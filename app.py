@@ -34,17 +34,18 @@ def load_schools_database(file_path="secondary_schools.json"):
 
 
 def retrieve_schools_by_county(schools_db, county_input, limit=20):
-    """Searches the database and limits results to top N schools per county."""
+    """Searches the database using the county/district field and limits results."""
     q = county_input.strip().lower()
+
     if not q:
         return []
 
     matched = []
-    for school in schools_db:
-        county_field = str(school.get("county") or school.get("County") or school.get("location") or "").lower()
-        full_text = " ".join(str(v).lower() for v in school.values())
 
-        if q in county_field or q in full_text:
+    for school in schools_db:
+        district = str(school.get("district") or "").strip().lower()
+
+        if q == district:
             matched.append(school)
 
     return matched[:limit]
@@ -67,12 +68,32 @@ RETRIEVED SCHOOLS FROM DATABASE:
 
 TASK:
 1. List the retrieved schools in a strict numbered format (1., 2., 3., ... up to {len(candidates)}).
-2. For each numbered item, show:
+
+2. For each school, show only information explicitly available in the provided database record:
    - School Name
-   - Category/Tier (e.g., National, Extra County, County, Sub-County, C1-C4)
-   - Gender/Type (e.g., Boys, Girls, Mixed)
-   - Accommodation (e.g., Boarding, Day)
-3. End with a 1-sentence note stating the total number of schools listed for {county.title()}.
+   - Category
+   - Status
+   - Sponsor
+   - Level
+   - Province
+   - District
+   - Constituency
+   - Division
+   - Location
+   - Sub-location
+   - Classrooms
+   - Online Verification Status
+
+3. If a field is missing or its value is null, write "Not specified" or "Not verified".
+4. Do NOT infer, guess, or invent:
+   - School category
+   - Gender/type
+   - Accommodation
+   - Pathways
+   - Subject combinations
+   - Any other information not explicitly present in the database.
+
+5. End with a 1-sentence note stating the total number of schools listed for {county.title()}.
 """
 
     response = client.chat.completions.create(
@@ -156,7 +177,7 @@ def option_1_county_school_rag(schools_db: list, session_log: list):
     try:
         report = generate_county_school_report(county, candidates)
         print("=" * 60)
-        print(f"SCHOOLS DIRECTORY: {county.upper()} COUNTY (TOP {len(candidates)})")
+        print(f"SCHOOLS DIRECTORY: {county.upper()} COUNTY ({len(candidates)} RESULTS)")
         print("=" * 60)
         print(report)
 
@@ -234,7 +255,7 @@ def display_menu():
     print("\n" + "=" * 60)
     print(" CBC SENIOR SCHOOL SELECTION & CAREER ADVISORY TOOL")
     print("=" * 60)
-    print("1. Secondary Schools Directory by County (RAG Database - Top 20)")
+    print("1. Secondary Schools Directory by County (RAG Database - 20 Results)")
     print("2. Career Opportunity & Industry Insights (CBC Pathways)")
     print("3. Exit Program")
 
