@@ -10,11 +10,13 @@ from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# Load environment variables
+# Load environment variables from the local .env file
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Initialize OpenAI client. 
+# It automatically looks for an environment variable named "OPENAI_API_KEY".
+client = OpenAI()
+
 
 
 # =====================================================================
@@ -124,7 +126,6 @@ def option_1_senior_school_matching(session_log: list):
     print("\n" + "=" * 60)
     print(" Option 1: Senior School Matching & Pathway Alignment")
     print("=" * 60)
-
     pathway = input("Enter preferred CBC pathway (e.g. STEM, Arts & Sports, Social Sciences): ").strip()
     county = input("Enter preferred location/county (e.g. Siaya, Nairobi, Any): ").strip()
     subjects = input("Enter subject combination (comma-separated): ").strip()
@@ -193,30 +194,27 @@ def option_3_exit_program(session_log: list):
                 json.dump(session_log, f, indent=2)
             print(f"[✓] Session artifacts successfully logged to '{log_filename}'.")
         except Exception as e:
-            print(f"[!] Warning: Failed to write session log file: {e}")
-    else:
-        print("No actions performed during this session.")
-
-    print("Goodbye!")
+            print(f"[!] Error saving session log: {e}")
     sys.exit(0)
 
 
-def display_menu():
-    print("\n" + "=" * 60)
-    print(" CBC SENIOR SCHOOL SELECTION & CAREER ADVISORY TOOL")
-    print("=" * 60)
-    print("1. Senior School Matching & Pathway Alignment")
-    print("2. Career Opportunity & Industry Insights")
-    print("3. Exit Program")
-
-
-def main():
+# =====================================================================
+# MAIN RUNNER
+# =====================================================================
+if __name__ == "__main__":
     session_log = []
-
+    
     while True:
-        display_menu()
-        choice = input("\nSelect an option (1-3): ").strip()
-
+        print("\n" + "═" * 60)
+        print(" KENYAN CBC SENIOR SCHOOL & CAREER ADVISORY TOOL")
+        print("═" * 60)
+        print("1. Senior School Matching & Pathway Alignment")
+        print("2. Career Opportunity & Industry Insights")
+        print("3. Exit Program")
+        print("═" * 60)
+        
+        choice = input("Select an option (1-3): ").strip()
+        
         if choice == "1":
             option_1_senior_school_matching(session_log)
         elif choice == "2":
@@ -224,8 +222,4 @@ def main():
         elif choice == "3":
             option_3_exit_program(session_log)
         else:
-            print("\n[!] Invalid choice. Please enter 1, 2, or 3.")
-
-
-if __name__ == "__main__":
-    main()
+            print("[!] Invalid option. Please enter 1, 2, or 3.")
