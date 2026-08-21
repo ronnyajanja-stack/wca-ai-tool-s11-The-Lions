@@ -3,7 +3,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from exporter import export_session
+from export import export_session
 
 
 def test_export_session_creates_both_files() -> None:
