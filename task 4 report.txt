@@ -1,0 +1,57 @@
+Task 4 Report: File Export, Documentation and Project Finalization
+Introduction
+My task  focused on making the CBC Senior School Selection and Career Advisory Tool ready for users and for submission. The work covered exporting session results, documenting the program through comments and a README file, and carrying out final integration checks.
+
+The objectives of my task were to:
+- Create a file-export feature for saving session results.
+- Add clear comments to improve code readability and maintenance.
+- Prepare a README file explaining installation, configuration, and use of the application.
+- Finalize the project by checking that all components work together correctly.
+File Export Module
+The export module is responsible for saving user session artifacts after the system produces school recommendations or career guidance. Exported files allow students and parents to retain results for future reference.
+The module should:
+- Export the school-matching JSON response when required.
+- Export the career advisory report in Markdown or text format.
+- Use meaningful filenames, such as school_recommendations.json and career_report.md.
+- Handle file-writing errors safely using exception handling.
+- Inform the user whether the export was successful or unsuccessful.
+Because exports may contain generated recommendations and personal preference data, they should remain local unless the user deliberately chooses to share them.
+Code Comments
+Comments were included to make the program easier for other team members and future developers to understand. Important areas that require comments include:
+- The purpose of each function and module.
+- Input validation rules in the CLI menu.
+- API response parsing and error handling.
+- Export file creation and naming.
+- Security-sensitive configuration, especially environment-variable usage.
+Good comments explain the reason for important logic rather than simply repeating what each line of code does.
+README Documentation
+The README file should provide a complete guide for running the application. It should include:
+1. A short project description.
+2. The system requirements, including Python and required libraries.
+3. Installation steps.
+4. Instructions for creating a virtual environment.
+5. Instructions for creating a local .env file from .env.example.
+6. Commands for running the application.
+7. An explanation of the three menu options:
+   - Senior School Matching and Pathway Alignment
+   - Career Opportunity and Industry Insights
+   - Exit Program
+8. Notes on exported session files.
+9. Security guidance stating that API keys must never be committed to Git.
+Security and Repository Finalization
+The project must protect credentials and unnecessary local files through .gitignore. The following items should not be pushed to the repository:
+.env
+venv/
+__pycache__/
+*.json
+*.md
+*.txt
+A .env.example file should be included instead of the real .env file so that users know which environment variables are needed without exposing API credentials.
+Before final submission, the team should confirm that:
+- The application starts without errors.
+- All menu options work correctly.
+- API failures are handled gracefully.
+- Session output exports successfully.
+- No API keys or sensitive local files are tracked by Git.
+- The README instructions match the actual project setup.
+My task improves the usability, maintainability, and security of the CBC Senior School Selection and Career Advisory Tool. The export module ensures users can preserve their results, comments support future development, and the README enables others to install and use the system correctly. Final checks and secure Git practices help ensure the project is ready for deployment and assessment.
